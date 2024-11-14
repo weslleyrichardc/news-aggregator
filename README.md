@@ -1,6 +1,7 @@
 # News Aggregator API
 
-A Laravel API that aggregates news from multiple news sources and provides endpoints for a frontend application to consume.
+A Laravel API that aggregates news from multiple news sources and provides endpoints for a frontend application to
+consume.
 
 ## Requirements
 
@@ -26,9 +27,9 @@ Open [http://localhost:8000](http://localhost:8000) to view the application.
 ## Features
 
 - [ ] User authentication using Laravel Sanctum
-    - [ ] Register
-    - [ ] Login
-    - [ ] Logout
+    - [X] Register
+    - [X] Login
+    - [X] Logout
     - [ ] Password reset
 - [ ] Article management from multiple sources
     - [ ] Listing with pagination
@@ -41,7 +42,6 @@ Open [http://localhost:8000](http://localhost:8000) to view the application.
         - [ ] News APIs
         - [ ] The Guardian
         - [ ] The New York Times
-        - [ ] BBC News
 - [ ] API Documentation
     - [ ] Swagger/OpenAPI
 
