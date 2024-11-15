@@ -32,9 +32,9 @@ Open [http://localhost:8000](http://localhost:8000) to view the application.
     - [X] Logout
     - [ ] Password reset
 - [ ] Article management from multiple sources
-    - [ ] Listing with pagination
+    - [X] Listing with pagination
     - [ ] Filtering by category, keyword, source, and date
-    - [ ] Article details
+    - [X] Article details
 - [ ] User preferences
     - [ ] Prefered sources, categories, and authors
 - [ ] Data Aggregation
