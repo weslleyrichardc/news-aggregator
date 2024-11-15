@@ -14,6 +14,16 @@ class Article extends Model
     /** @use HasFactory<ArticleFactory> */
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'author',
+        'slug',
+        'source_id',
+        'content',
+        'url',
+        'published_at',
+    ];
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);

@@ -37,7 +37,7 @@ class ArticleController extends Controller
             $articles
                 ->select('title', 'author', 'slug', 'source_id', 'content', 'url', 'published_at')
                 ->orderBy('published_at', 'desc')
-                ->paginate()
+                ->simplePaginate()
         );
     }
 

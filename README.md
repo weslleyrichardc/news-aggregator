@@ -39,7 +39,7 @@ Open [http://localhost:8000](http://localhost:8000) to view the application.
     - [ ] Prefered sources, categories, and authors
 - [ ] Data Aggregation
     - [ ] Scheduled fetching of articles from multiple sources
-        - [ ] News APIs
+        - [X] News APIs
         - [ ] The Guardian
         - [ ] The New York Times
 - [ ] API Documentation

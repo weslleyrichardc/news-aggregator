@@ -12,6 +12,12 @@ class Source extends Model
     /** @use HasFactory<SourceFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'url',
+    ];
+
     public function articles(): BelongsToMany
     {
         return $this->belongsToMany(Article::class);

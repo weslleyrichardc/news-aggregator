@@ -21,15 +21,17 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->timestamps();
         });
 
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('author')->nullable();
             $table->string('slug')->unique();
             $table->text('content');
+            $table->string('url');
             $table->dateTime('published_at');
             $table->foreignId('source_id');
             $table->timestamps();
