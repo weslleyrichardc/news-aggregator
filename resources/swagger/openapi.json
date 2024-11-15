@@ -1,0 +1,1296 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "News Aggregator API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "User"
+        },
+        {
+            "name": "Article"
+        }
+    ],
+    "paths": {
+        "/api/user/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Register",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "example": {
+                                    "name": "Teste",
+                                    "email": "teste@teste.com",
+                                    "password": "password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {
+                            "Host": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "localhost:8000"
+                                }
+                            },
+                            "Connection": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "close"
+                                }
+                            },
+                            "X-Powered-By": {
+                                "schema": {
+                                    "type": "number",
+                                    "example": "PHP/8.3.13"
+                                }
+                            },
+                            "Cache-Control": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "no-cache, private"
+                                }
+                            },
+                            "Date": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Fri, 15 Nov 2024 21:25:16 GMT"
+                                }
+                            },
+                            "Content-Type": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "application/json"
+                                }
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "*"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "user": {
+                                        "name": "Teste",
+                                        "email": "teste@teste.com"
+                                    },
+                                    "token_type": "Bearer",
+                                    "token": "1|eCjUv42epjusKz1vqLygZhge6Q5uOl33yX3F6m1Waa864c40"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "headers": {
+                            "Host": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "localhost:8000"
+                                }
+                            },
+                            "Connection": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "close"
+                                }
+                            },
+                            "X-Powered-By": {
+                                "schema": {
+                                    "type": "number",
+                                    "example": "PHP/8.3.13"
+                                }
+                            },
+                            "Cache-Control": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "no-cache, private"
+                                }
+                            },
+                            "Date": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Fri, 15 Nov 2024 21:26:45 GMT"
+                                }
+                            },
+                            "Content-Type": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "application/json"
+                                }
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "*"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "example-0": {
+                                        "summary": "Name required",
+                                        "value": {
+                                            "message": "The name field is required. (and 1 more error)",
+                                            "errors": {
+                                                "name": [
+                                                    "The name field is required."
+                                                ],
+                                                "email": [
+                                                    "The email has already been taken."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "example-1": {
+                                        "summary": "Email required",
+                                        "value": {
+                                            "message": "The email field is required.",
+                                            "errors": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "example-2": {
+                                        "summary": "Password required",
+                                        "value": {
+                                            "message": "The password field is required.",
+                                            "errors": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "example-3": {
+                                        "summary": "Unique email",
+                                        "value": {
+                                            "message": "The email has already been taken.",
+                                            "errors": {
+                                                "email": [
+                                                    "The email has already been taken."
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "example": {
+                                    "email": "teste@teste.com",
+                                    "password": "password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "Host": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "localhost:8000"
+                                }
+                            },
+                            "Connection": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "close"
+                                }
+                            },
+                            "X-Powered-By": {
+                                "schema": {
+                                    "type": "number",
+                                    "example": "PHP/8.3.13"
+                                }
+                            },
+                            "Cache-Control": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "no-cache, private"
+                                }
+                            },
+                            "Date": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Fri, 15 Nov 2024 21:25:35 GMT"
+                                }
+                            },
+                            "Content-Type": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "application/json"
+                                }
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "*"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "user": {
+                                        "name": "Teste",
+                                        "email": "teste@teste.com"
+                                    },
+                                    "token_type": "Bearer",
+                                    "token": "2|H6eFogPhNZlZd9Q7QUfSK10rqzbuQt7c17LG8Tet52506dd4"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "headers": {
+                            "Host": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "localhost:8000"
+                                }
+                            },
+                            "Connection": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "close"
+                                }
+                            },
+                            "X-Powered-By": {
+                                "schema": {
+                                    "type": "number",
+                                    "example": "PHP/8.3.13"
+                                }
+                            },
+                            "Cache-Control": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "no-cache, private"
+                                }
+                            },
+                            "Date": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Fri, 15 Nov 2024 21:26:12 GMT"
+                                }
+                            },
+                            "Content-Type": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "application/json"
+                                }
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "*"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "The password field must be at least 8 characters.",
+                                    "errors": {
+                                        "password": [
+                                            "The password field must be at least 8 characters."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/logout": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Logout",
+                "requestBody": {
+                    "content": {}
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "Host": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "localhost:8000"
+                                }
+                            },
+                            "Connection": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "close"
+                                }
+                            },
+                            "X-Powered-By": {
+                                "schema": {
+                                    "type": "number",
+                                    "example": "PHP/8.3.13"
+                                }
+                            },
+                            "Cache-Control": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "no-cache, private"
+                                }
+                            },
+                            "Date": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Fri, 15 Nov 2024 21:25:48 GMT"
+                                }
+                            },
+                            "Content-Type": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "application/json"
+                                }
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "*"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "message": "Logged Out"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "headers": {
+                            "Host": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "localhost:8000"
+                                }
+                            },
+                            "Connection": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "close"
+                                }
+                            },
+                            "X-Powered-By": {
+                                "schema": {
+                                    "type": "number",
+                                    "example": "PHP/8.3.13"
+                                }
+                            },
+                            "Cache-Control": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "no-cache, private"
+                                }
+                            },
+                            "Date": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Fri, 15 Nov 2024 21:35:43 GMT"
+                                }
+                            },
+                            "Content-Type": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "application/json"
+                                }
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "*"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "error": "Bad Credentials"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/article": {
+            "get": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "Index",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    },
+                    {
+                        "name": "source",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "wwwe15cz"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "Host": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "localhost:8000"
+                                }
+                            },
+                            "Connection": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "close"
+                                }
+                            },
+                            "X-Powered-By": {
+                                "schema": {
+                                    "type": "number",
+                                    "example": "PHP/8.3.13"
+                                }
+                            },
+                            "Cache-Control": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "no-cache, private"
+                                }
+                            },
+                            "Date": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Fri, 15 Nov 2024 21:40:43 GMT"
+                                }
+                            },
+                            "Content-Type": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "application/json"
+                                }
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "*"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "example-0": {
+                                        "summary": "Search with no params",
+                                        "value": {
+                                            "data": [
+                                                {
+                                                    "title": "DIGITIMES釋明年科技關鍵字「轉」！　川普2.0曲球生成AI成企業轉型利器",
+                                                    "author": "陳俐妏",
+                                                    "slug": "digitimes-20ai",
+                                                    "source": "yahoo-entertainment",
+                                                    "content": "AIDIGITIMESAI2.02025AI\r\nDIGITIMESDIGITIMES 20254DIGITIMES2025AIAI\r\nDIGITIMESICAIAIwafer foundryAIAI foundry\r\nDIGITIMESAIAI18.1%41.3%AI31.5%AI\r\n (EMS)\r\n 90%20251\r\n: AI 50% GB200Blackwell2",
+                                                    "url": "https://tw.news.yahoo.com/digitimes%E9%87%8B%E6%98%8E%E5%B9%B4%E7%A7%91%E6%8A%80%E9%97%9C%E9%8D%B5%E5%AD%97-%E8%BD%89-%E5%B7%9D%E6%99%AE2-0%E6%9B%B2%E7%90%83%E7%94%9F%E6%88%90ai%E6%88%90%E4%BC%81%E6%A5%AD%E8%BD%89%E5%9E%8B%E5%88%A9%E5%99%A8-045237379.html",
+                                                    "published_at": "2024-11-14T20:52:37Z"
+                                                },
+                                                {
+                                                    "title": "Jules et Juline Delcommune remportent le titre de champion et championne de Wallonie de cyclocross: \"Il y a un an, je ne m'attendais même pas à revenir à ce niveau\"",
+                                                    "author": "Romain Helas",
+                                                    "slug": "jules-et-juline-delcommune-remportent-le-titre-de-champion-et-championne-de-wallonie-de-cyclocross-il-y-a-un-an-je-ne-mattendais-meme-pas-a-revenir-a-ce-niveau",
+                                                    "source": "lavenirnet",
+                                                    "content": "Et durant la course, Jules Delcommune a pu compter sur la présence de coureurs flamands. \"Je n'étais pas dans mon meilleur jour, mais j'ai pu attaquer fort dès le début et être le seul Wallon à reste… [+1164 chars]",
+                                                    "url": "https://www.lavenir.net/regions/huy-waremme/sports/2024/11/14/jules-et-juline-delcommune-remportent-le-titre-de-champion-et-championne-de-wallonie-de-cyclocross-il-y-a-un-an-je-ne-mattendais-meme-pas-a-revenir-a-ce-niveau-GJCIEIGTJZBE3FR6DXXKFMQCBQ/",
+                                                    "published_at": "2024-11-14T20:52:00Z"
+                                                },
+                                                {
+                                                    "title": "This Pixel phone feature listens in on calls to protect you from scams",
+                                                    "author": "Artie Beaty",
+                                                    "slug": "this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams",
+                                                    "source": "zdnet",
+                                                    "content": "Max Buondonno/ZDNET\r\nPhone scams are on the rise, and thanks to AI, they're more convincing than ever. That's why Google is stepping in and offering one last line of defense for Pixel users -- a feat… [+1910 chars]",
+                                                    "url": "https://www.zdnet.com/article/this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams/",
+                                                    "published_at": "2024-11-14T20:51:09Z"
+                                                },
+                                                {
+                                                    "title": "Belgio-Italia 0-1 DIRETTA e FOTO",
+                                                    "author": null,
+                                                    "slug": "belgio-italia-0-1-diretta-e-foto",
+                                                    "source": "ansait",
+                                                    "content": "Se hai scelto di non accettare i cookie di profilazione e tracciamento, puoi aderire all’abbonamento \"Consentless\" a un costo molto accessibile, oppure scegliere un altro abbonamento per accedere ad … [+320 chars]",
+                                                    "url": "https://www.ansa.it/sito/notizie/sport/calcio/2024/11/14/nations-league-italia-ai-quarti-belgio-battuto-1-0-a-bruxelles_3b1719e9-d2ab-4abb-8c85-1153af05c363.html",
+                                                    "published_at": "2024-11-14T20:51:03Z"
+                                                },
+                                                {
+                                                    "title": "TikTok plugs Getty Images into its AI-generated ads and avatars",
+                                                    "author": "Emma Roth",
+                                                    "slug": "tiktok-plugs-getty-images-into-its-ai-generated-ads-and-avatars",
+                                                    "source": "the-verge",
+                                                    "content": "TikTok plugs Getty Images into its AI-generated ads and avatars\r\nTikTok plugs Getty Images into its AI-generated ads and avatars\r\n / Gettys licensed images and videos will be available within TikToks… [+1515 chars]",
+                                                    "url": "https://www.theverge.com/2024/11/14/24296636/tiktok-ai-ads-getty-images-content",
+                                                    "published_at": "2024-11-14T20:50:45Z"
+                                                },
+                                                {
+                                                    "title": "TheCUBE analysis: Cloud-native infrastructure reshapes the future of scalable, AI-driven environments",
+                                                    "author": "Chad Wilson",
+                                                    "slug": "thecube-analysis-cloud-native-infrastructure-reshapes-the-future-of-scalable-ai-driven-environments",
+                                                    "source": "siliconangle-news",
+                                                    "content": "Cloud-native infrastructure is rapidly changing as companies seek to streamline, scale and secure their digital environments.\r\nAs modern technology increasingly depends on platform engineering and ar… [+5535 chars]",
+                                                    "url": "https://siliconangle.com/2024/11/14/cloud-native-infrastructure-kubecon/",
+                                                    "published_at": "2024-11-14T20:50:18Z"
+                                                },
+                                                {
+                                                    "title": "[Removed]",
+                                                    "author": null,
+                                                    "slug": "removed",
+                                                    "source": "removed",
+                                                    "content": "[Removed]",
+                                                    "url": "https://removed.com",
+                                                    "published_at": "2024-11-14T20:50:00Z"
+                                                },
+                                                {
+                                                    "title": "Bruker stock touches 52-week low at $54.55 amid market shifts",
+                                                    "author": "Investing.com",
+                                                    "slug": "bruker-stock-touches-52-week-low-at-5455-amid-market-shifts",
+                                                    "source": "investingcom",
+                                                    "content": "In a challenging market environment, Bruker (NASDAQ:BRKR) Corporation's stock (BRKR) has reached a 52-week low, dipping to $54.55. This latest price level reflects a notable decline in the company's … [+2886 chars]",
+                                                    "url": "https://www.investing.com/news/company-news/bruker-stock-touches-52week-low-at-5455-amid-market-shifts-93CH-3724117",
+                                                    "published_at": "2024-11-14T20:49:50Z"
+                                                },
+                                                {
+                                                    "title": "Commerce Bancshares controller Paul Steiner sells $58k in stock",
+                                                    "author": "Investing.com",
+                                                    "slug": "commerce-bancshares-controller-paul-steiner-sells-58k-in-stock",
+                                                    "source": "investingcom",
+                                                    "content": "KANSAS CITY, MO—Paul A. Steiner, Controller at Commerce Bancshares Inc. (NASDAQ:CBSH), recently sold shares of the company's common stock. According to a filing with the Securities and Exchange Commi… [+3087 chars]",
+                                                    "url": "https://www.investing.com/news/insider-trading-news/commerce-bancshares-controller-paul-steiner-sells-58k-in-stock-93CH-3724116",
+                                                    "published_at": "2024-11-14T20:49:39Z"
+                                                },
+                                                {
+                                                    "title": "ELA stock touches 52-week high at $6.24 amid market optimism",
+                                                    "author": "Investing.com",
+                                                    "slug": "ela-stock-touches-52-week-high-at-624-amid-market-optimism",
+                                                    "source": "investingcom",
+                                                    "content": "In a remarkable display of resilience, ELA stock has soared to a 52-week high, reaching a price level of $6.24 USD. This peak reflects a significant surge in investor confidence and market performanc… [+1827 chars]",
+                                                    "url": "https://www.investing.com/news/company-news/ela-stock-touches-52week-high-at-624-amid-market-optimism-93CH-3724115",
+                                                    "published_at": "2024-11-14T20:49:23Z"
+                                                },
+                                                {
+                                                    "title": "How Dune: Prophecy Explores a Future Afraid of AI",
+                                                    "author": "Liz Shannon Miller",
+                                                    "slug": "how-dune-prophecy-explores-a-future-afraid-of-ai",
+                                                    "source": "consequencenet",
+                                                    "content": "The newest addition to the Dune franchise doesn’t want to be a one-off entry. According to Dune: Prophecy executive producer Jordan Goldberg, “There are so many things to touch upon in this universe … [+5937 chars]",
+                                                    "url": "https://consequence.net/2024/11/dune-prophecy-ai-technology-interviews-hbo/",
+                                                    "published_at": "2024-11-14T20:49:19Z"
+                                                },
+                                                {
+                                                    "title": "Dopo Forza Italia anche la Lega propone un nuovo condono: rottamazione delle cartelle fino al 2023 con pagamenti spalmati su 10 anni",
+                                                    "author": "F. Q.",
+                                                    "slug": "dopo-forza-italia-anche-la-lega-propone-un-nuovo-condono-rottamazione-delle-cartelle-fino-al-2023-con-pagamenti-spalmati-su-10-anni",
+                                                    "source": "ilfattoquotidianoit",
+                                                    "content": "Milano, 14 nov. (Adnkronos Salute) - Impulsivi, lunatici, ribelli alle regole. Sono gli adolescenti di oggi e di ieri. Ma quando un figlio teenager davanti a un bivio prende la decisione sbagliata po… [+3115 chars]",
+                                                    "url": "https://www.ilfattoquotidiano.it/2024/11/14/dopo-forza-italia-anche-la-lega-propone-un-nuovo-condono-rottamazione-delle-cartelle-fino-al-2023-con-pagamenti-spalmati-su-10-anni/7767669/",
+                                                    "published_at": "2024-11-14T20:48:35Z"
+                                                },
+                                                {
+                                                    "title": "Nejrychleji rostoucí firmou střední Evropy je česká Oddin.gg, druhá skončila Magu",
+                                                    "author": "ČTK",
+                                                    "slug": "nejrychleji-rostouci-firmou-stredni-evropy-je-ceska-oddingg-druha-skoncila-magu",
+                                                    "source": "wwwe15cz",
+                                                    "content": "Vítzem hlavní kategorie ebíku Deloitte Technology Fast 50 CE nejrychleji rostoucích firem ve stedoevropském regionu je letos eská firma Oddin.gg, která vytváí nástroje pro esport. Druhé místo obsadil… [+2451 chars]",
+                                                    "url": "https://www.e15.cz/byznys/startupy/nejrychleji-rostouci-firmou-stredni-evropy-je-ceska-oddin-gg-druha-skoncila-magu-1420095",
+                                                    "published_at": "2024-11-14T20:48:00Z"
+                                                },
+                                                {
+                                                    "title": "Biden Admin: If Trump Wants to Squash 'Rare' AI Plan, That's His 'Prerogative'",
+                                                    "author": "Emily Dreibelbis Forlini",
+                                                    "slug": "biden-admin-if-trump-wants-to-squash-rare-ai-plan-thats-his-prerogative",
+                                                    "source": "pcmagcom",
+                                                    "content": "The Department of Homeland Security today released a framework for using AI in critical infrastructure, such as emergency services, the power grid, and water and IT systems.\r\n\"The framework, if widel… [+2734 chars]",
+                                                    "url": "https://me.pcmag.com/en/ai/26896/biden-admin-if-trump-wants-to-squash-rare-ai-plan-thats-his-prerogative",
+                                                    "published_at": "2024-11-14T20:47:19Z"
+                                                },
+                                                {
+                                                    "title": "Australia Post unites HR support with new 'front door' and tech platform",
+                                                    "author": null,
+                                                    "slug": "australia-post-unites-hr-support-with-new-front-door-and-tech-platform",
+                                                    "source": "itnews",
+                                                    "content": "Australia Post has created a single front door for HR support, underpinned by a platform that’s being enhanced and expanded over a three-year period.\r\nHead of people services Laura Cheail told the Se… [+2989 chars]",
+                                                    "url": "https://www.itnews.com.au/news/australia-post-unites-hr-support-with-new-front-door-and-tech-platform-612574",
+                                                    "published_at": "2024-11-14T20:47:00Z"
+                                                }
+                                            ],
+                                            "links": {
+                                                "first": "http://localhost:8000/api/article?page=1",
+                                                "last": null,
+                                                "prev": null,
+                                                "next": "http://localhost:8000/api/article?page=2"
+                                            },
+                                            "meta": {
+                                                "current_page": 1,
+                                                "from": 1,
+                                                "path": "http://localhost:8000/api/article",
+                                                "per_page": 15,
+                                                "to": 15
+                                            }
+                                        }
+                                    },
+                                    "example-1": {
+                                        "summary": "Search by Keyword",
+                                        "value": {
+                                            "data": [
+                                                {
+                                                    "title": "This Pixel phone feature listens in on calls to protect you from scams",
+                                                    "author": "Artie Beaty",
+                                                    "slug": "this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams",
+                                                    "source": "zdnet",
+                                                    "content": "Max Buondonno/ZDNET\r\nPhone scams are on the rise, and thanks to AI, they're more convincing than ever. That's why Google is stepping in and offering one last line of defense for Pixel users -- a feat… [+1910 chars]",
+                                                    "url": "https://www.zdnet.com/article/this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams/",
+                                                    "published_at": "2024-11-14T20:51:09Z"
+                                                },
+                                                {
+                                                    "title": "Google’s Gemini AI gets its own chatty iPhone app",
+                                                    "author": "Ed Hardy",
+                                                    "slug": "googles-gemini-ai-gets-its-own-chatty-iphone-app",
+                                                    "source": "cult-of-mac",
+                                                    "content": "The Gemini application for iPhone that launched Thursday gives users direct access to Googles AI-powered virtual assistant.\r\nHave a conversation, get advice or generate images with the app.\r\nFor the … [+1968 chars]",
+                                                    "url": "https://www.cultofmac.com/news/google-gemini-iphone-app-ai-release-date",
+                                                    "published_at": "2024-11-14T20:46:44Z"
+                                                },
+                                                {
+                                                    "title": "REDMAGIC 10 Pro is a gaming phone with a 6.85 inch, 144 Hz display, 7050 mAh battery and Snapdragon 8 Elite",
+                                                    "author": "Brad Linder",
+                                                    "slug": "redmagic-10-pro-is-a-gaming-phone-with-a-685-inch-144-hz-display-7050-mah-battery-and-snapdragon-8-elite",
+                                                    "source": "liliputing",
+                                                    "content": "REDMAGIC’s smartphones for gamers have always offered borderline ridiculous-for-a-smartphone specs, but the new REDMAGIC 10 Pro is probably the most ridiculous to date.\r\nIt’s a smartphone with a near… [+2068 chars]",
+                                                    "url": "https://liliputing.com/redmagic-10-pro-is-a-gaming-phone-with-a-6-85-inch-144-hz-display-7050-mah-battery-and-snapdragon-8-elite/",
+                                                    "published_at": "2024-11-14T20:26:11Z"
+                                                },
+                                                {
+                                                    "title": "2025/2026 emoji could include a Big Foot-like creature, an apple core, a fight cloud, a treasure chest and others",
+                                                    "author": "Christian Zibreg",
+                                                    "slug": "20252026-emoji-could-include-a-big-foot-like-creature-an-apple-core-a-fight-cloud-a-treasure-chest-and-others",
+                                                    "source": "idownloadblogcom",
+                                                    "content": "A total of 164 new emoji characters could hit emoji keyboards late next year, with your iPhone expected to get them in an iOS 19 update.\r\nNew emoji proposed as part of Unicode 17. Image: Emojipedia\r\n… [+2088 chars]",
+                                                    "url": "https://www.idownloadblog.com/2024/11/14/2025-emoji-proposals/",
+                                                    "published_at": "2024-11-14T20:15:46Z"
+                                                },
+                                                {
+                                                    "title": "Rumor Replay: ‘HomePad,’ iPhone 18 camera, Vision Pro 2, more",
+                                                    "author": "Ryan Christoffel",
+                                                    "slug": "rumor-replay-homepad-iphone-18-camera-vision-pro-2-more",
+                                                    "source": "9to5mac",
+                                                    "content": "This is Rumor Replay, a new weekly column at 9to5Mac that provides a quick rundown of the most recent Apple product rumors, with my analysis and commentary. Today: Apples new HomePad device, Vision P… [+3373 chars]",
+                                                    "url": "https://9to5mac.com/2024/11/14/rumor-replay-homepad-vision-pro-2-iphone-18-camera/",
+                                                    "published_at": "2024-11-14T20:00:00Z"
+                                                },
+                                                {
+                                                    "title": "Photographer’s ‘Shot on iPhone’ Project Celebrates Legacy’s Generational Impacts",
+                                                    "author": "Jeremy Gray",
+                                                    "slug": "photographers-shot-on-iphone-project-celebrates-legacys-generational-impacts",
+                                                    "source": "petapixel",
+                                                    "content": "Multi-talented artist Aundre Larrow is an exceptional photographer, filmmaker, and director. He is also an ardent defender of art at large and a staunch believer in the impact it can have on people, … [+9436 chars]",
+                                                    "url": "https://petapixel.com/2024/11/14/photographers-shot-on-iphone-project-celebrates-legacys-generational-impacts/",
+                                                    "published_at": "2024-11-14T19:58:14Z"
+                                                },
+                                                {
+                                                    "title": "Google's live scam detection for phone calls is now out for Pixel devices",
+                                                    "author": "Mariella Moon",
+                                                    "slug": "googles-live-scam-detection-for-phone-calls-is-now-out-for-pixel-devices",
+                                                    "source": "yahoo-entertainment",
+                                                    "content": "If you click 'Accept all', we and our partners, including 237 who are part of the IAB Transparency &amp; Consent Framework, will also store and/or access information on a device (in other words, use … [+678 chars]",
+                                                    "url": "https://consent.yahoo.com/v2/collectConsent?sessionId=1_cc-session_420b3bf4-b5ca-4d34-882b-eb0adf9109d8",
+                                                    "published_at": "2024-11-14T14:30:17Z"
+                                                },
+                                                {
+                                                    "title": "Alexa at 10: Amazon’s assistant is a winner and a failure",
+                                                    "author": "David Pierce",
+                                                    "slug": "alexa-at-10-amazons-assistant-is-a-winner-and-a-failure",
+                                                    "source": "the-verge",
+                                                    "content": "Image: Alex Parkin / The Verge\r\n\n \n\n Alexa didn’t get a big splashy launch event, or come with a bunch of grand proclamations about being the future of anything. Instead, like a phone charger with a … [+2304 chars]",
+                                                    "url": "https://www.theverge.com/2024/11/5/24288352/amazon-alexa-anniversary-ai-llm-assistant-vergecast",
+                                                    "published_at": "2024-11-05T13:47:21Z"
+                                                },
+                                                {
+                                                    "title": "Apple Intelligence is coming to EU iPhones and iPads in April",
+                                                    "author": "Will Shanklin",
+                                                    "slug": "apple-intelligence-is-coming-to-eu-iphones-and-ipads-in-april",
+                                                    "source": "yahoo-entertainment",
+                                                    "content": "If you click 'Accept all', we and our partners, including 237 who are part of the IAB Transparency &amp; Consent Framework, will also store and/or access information on a device (in other words, use … [+678 chars]",
+                                                    "url": "https://consent.yahoo.com/v2/collectConsent?sessionId=1_cc-session_9e418204-613e-41ea-849e-1acac15729e7",
+                                                    "published_at": "2024-10-28T19:10:28Z"
+                                                },
+                                                {
+                                                    "title": "Samsung Galaxy S24 FE review: A great phone, but I wish it was cheaper",
+                                                    "author": "Igor Bonifacic",
+                                                    "slug": "samsung-galaxy-s24-fe-review-a-great-phone-but-i-wish-it-was-cheaper",
+                                                    "source": "yahoo-entertainment",
+                                                    "content": "If you click 'Accept all', we and our partners, including 237 who are part of the IAB Transparency &amp; Consent Framework, will also store and/or access information on a device (in other words, use … [+678 chars]",
+                                                    "url": "https://consent.yahoo.com/v2/collectConsent?sessionId=1_cc-session_144e96bb-25f0-4aca-928b-f986425f52c5",
+                                                    "published_at": "2024-10-24T19:00:32Z"
+                                                }
+                                            ],
+                                            "links": {
+                                                "first": "http://localhost:8000/api/article?page=1",
+                                                "last": null,
+                                                "prev": null,
+                                                "next": null
+                                            },
+                                            "meta": {
+                                                "current_page": 1,
+                                                "from": 1,
+                                                "path": "http://localhost:8000/api/article",
+                                                "per_page": 15,
+                                                "to": 10
+                                            }
+                                        }
+                                    },
+                                    "example-2": {
+                                        "summary": "Search by Date from",
+                                        "value": {
+                                            "data": [
+                                                {
+                                                    "title": "DIGITIMES釋明年科技關鍵字「轉」！　川普2.0曲球生成AI成企業轉型利器",
+                                                    "author": "陳俐妏",
+                                                    "slug": "digitimes-20ai",
+                                                    "source": "yahoo-entertainment",
+                                                    "content": "AIDIGITIMESAI2.02025AI\r\nDIGITIMESDIGITIMES 20254DIGITIMES2025AIAI\r\nDIGITIMESICAIAIwafer foundryAIAI foundry\r\nDIGITIMESAIAI18.1%41.3%AI31.5%AI\r\n (EMS)\r\n 90%20251\r\n: AI 50% GB200Blackwell2",
+                                                    "url": "https://tw.news.yahoo.com/digitimes%E9%87%8B%E6%98%8E%E5%B9%B4%E7%A7%91%E6%8A%80%E9%97%9C%E9%8D%B5%E5%AD%97-%E8%BD%89-%E5%B7%9D%E6%99%AE2-0%E6%9B%B2%E7%90%83%E7%94%9F%E6%88%90ai%E6%88%90%E4%BC%81%E6%A5%AD%E8%BD%89%E5%9E%8B%E5%88%A9%E5%99%A8-045237379.html",
+                                                    "published_at": "2024-11-14T20:52:37Z"
+                                                },
+                                                {
+                                                    "title": "Jules et Juline Delcommune remportent le titre de champion et championne de Wallonie de cyclocross: \"Il y a un an, je ne m'attendais même pas à revenir à ce niveau\"",
+                                                    "author": "Romain Helas",
+                                                    "slug": "jules-et-juline-delcommune-remportent-le-titre-de-champion-et-championne-de-wallonie-de-cyclocross-il-y-a-un-an-je-ne-mattendais-meme-pas-a-revenir-a-ce-niveau",
+                                                    "source": "lavenirnet",
+                                                    "content": "Et durant la course, Jules Delcommune a pu compter sur la présence de coureurs flamands. \"Je n'étais pas dans mon meilleur jour, mais j'ai pu attaquer fort dès le début et être le seul Wallon à reste… [+1164 chars]",
+                                                    "url": "https://www.lavenir.net/regions/huy-waremme/sports/2024/11/14/jules-et-juline-delcommune-remportent-le-titre-de-champion-et-championne-de-wallonie-de-cyclocross-il-y-a-un-an-je-ne-mattendais-meme-pas-a-revenir-a-ce-niveau-GJCIEIGTJZBE3FR6DXXKFMQCBQ/",
+                                                    "published_at": "2024-11-14T20:52:00Z"
+                                                },
+                                                {
+                                                    "title": "This Pixel phone feature listens in on calls to protect you from scams",
+                                                    "author": "Artie Beaty",
+                                                    "slug": "this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams",
+                                                    "source": "zdnet",
+                                                    "content": "Max Buondonno/ZDNET\r\nPhone scams are on the rise, and thanks to AI, they're more convincing than ever. That's why Google is stepping in and offering one last line of defense for Pixel users -- a feat… [+1910 chars]",
+                                                    "url": "https://www.zdnet.com/article/this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams/",
+                                                    "published_at": "2024-11-14T20:51:09Z"
+                                                },
+                                                {
+                                                    "title": "Belgio-Italia 0-1 DIRETTA e FOTO",
+                                                    "author": null,
+                                                    "slug": "belgio-italia-0-1-diretta-e-foto",
+                                                    "source": "ansait",
+                                                    "content": "Se hai scelto di non accettare i cookie di profilazione e tracciamento, puoi aderire all’abbonamento \"Consentless\" a un costo molto accessibile, oppure scegliere un altro abbonamento per accedere ad … [+320 chars]",
+                                                    "url": "https://www.ansa.it/sito/notizie/sport/calcio/2024/11/14/nations-league-italia-ai-quarti-belgio-battuto-1-0-a-bruxelles_3b1719e9-d2ab-4abb-8c85-1153af05c363.html",
+                                                    "published_at": "2024-11-14T20:51:03Z"
+                                                },
+                                                {
+                                                    "title": "TikTok plugs Getty Images into its AI-generated ads and avatars",
+                                                    "author": "Emma Roth",
+                                                    "slug": "tiktok-plugs-getty-images-into-its-ai-generated-ads-and-avatars",
+                                                    "source": "the-verge",
+                                                    "content": "TikTok plugs Getty Images into its AI-generated ads and avatars\r\nTikTok plugs Getty Images into its AI-generated ads and avatars\r\n / Gettys licensed images and videos will be available within TikToks… [+1515 chars]",
+                                                    "url": "https://www.theverge.com/2024/11/14/24296636/tiktok-ai-ads-getty-images-content",
+                                                    "published_at": "2024-11-14T20:50:45Z"
+                                                },
+                                                {
+                                                    "title": "TheCUBE analysis: Cloud-native infrastructure reshapes the future of scalable, AI-driven environments",
+                                                    "author": "Chad Wilson",
+                                                    "slug": "thecube-analysis-cloud-native-infrastructure-reshapes-the-future-of-scalable-ai-driven-environments",
+                                                    "source": "siliconangle-news",
+                                                    "content": "Cloud-native infrastructure is rapidly changing as companies seek to streamline, scale and secure their digital environments.\r\nAs modern technology increasingly depends on platform engineering and ar… [+5535 chars]",
+                                                    "url": "https://siliconangle.com/2024/11/14/cloud-native-infrastructure-kubecon/",
+                                                    "published_at": "2024-11-14T20:50:18Z"
+                                                },
+                                                {
+                                                    "title": "[Removed]",
+                                                    "author": null,
+                                                    "slug": "removed",
+                                                    "source": "removed",
+                                                    "content": "[Removed]",
+                                                    "url": "https://removed.com",
+                                                    "published_at": "2024-11-14T20:50:00Z"
+                                                },
+                                                {
+                                                    "title": "Bruker stock touches 52-week low at $54.55 amid market shifts",
+                                                    "author": "Investing.com",
+                                                    "slug": "bruker-stock-touches-52-week-low-at-5455-amid-market-shifts",
+                                                    "source": "investingcom",
+                                                    "content": "In a challenging market environment, Bruker (NASDAQ:BRKR) Corporation's stock (BRKR) has reached a 52-week low, dipping to $54.55. This latest price level reflects a notable decline in the company's … [+2886 chars]",
+                                                    "url": "https://www.investing.com/news/company-news/bruker-stock-touches-52week-low-at-5455-amid-market-shifts-93CH-3724117",
+                                                    "published_at": "2024-11-14T20:49:50Z"
+                                                },
+                                                {
+                                                    "title": "Commerce Bancshares controller Paul Steiner sells $58k in stock",
+                                                    "author": "Investing.com",
+                                                    "slug": "commerce-bancshares-controller-paul-steiner-sells-58k-in-stock",
+                                                    "source": "investingcom",
+                                                    "content": "KANSAS CITY, MO—Paul A. Steiner, Controller at Commerce Bancshares Inc. (NASDAQ:CBSH), recently sold shares of the company's common stock. According to a filing with the Securities and Exchange Commi… [+3087 chars]",
+                                                    "url": "https://www.investing.com/news/insider-trading-news/commerce-bancshares-controller-paul-steiner-sells-58k-in-stock-93CH-3724116",
+                                                    "published_at": "2024-11-14T20:49:39Z"
+                                                },
+                                                {
+                                                    "title": "ELA stock touches 52-week high at $6.24 amid market optimism",
+                                                    "author": "Investing.com",
+                                                    "slug": "ela-stock-touches-52-week-high-at-624-amid-market-optimism",
+                                                    "source": "investingcom",
+                                                    "content": "In a remarkable display of resilience, ELA stock has soared to a 52-week high, reaching a price level of $6.24 USD. This peak reflects a significant surge in investor confidence and market performanc… [+1827 chars]",
+                                                    "url": "https://www.investing.com/news/company-news/ela-stock-touches-52week-high-at-624-amid-market-optimism-93CH-3724115",
+                                                    "published_at": "2024-11-14T20:49:23Z"
+                                                },
+                                                {
+                                                    "title": "How Dune: Prophecy Explores a Future Afraid of AI",
+                                                    "author": "Liz Shannon Miller",
+                                                    "slug": "how-dune-prophecy-explores-a-future-afraid-of-ai",
+                                                    "source": "consequencenet",
+                                                    "content": "The newest addition to the Dune franchise doesn’t want to be a one-off entry. According to Dune: Prophecy executive producer Jordan Goldberg, “There are so many things to touch upon in this universe … [+5937 chars]",
+                                                    "url": "https://consequence.net/2024/11/dune-prophecy-ai-technology-interviews-hbo/",
+                                                    "published_at": "2024-11-14T20:49:19Z"
+                                                },
+                                                {
+                                                    "title": "Dopo Forza Italia anche la Lega propone un nuovo condono: rottamazione delle cartelle fino al 2023 con pagamenti spalmati su 10 anni",
+                                                    "author": "F. Q.",
+                                                    "slug": "dopo-forza-italia-anche-la-lega-propone-un-nuovo-condono-rottamazione-delle-cartelle-fino-al-2023-con-pagamenti-spalmati-su-10-anni",
+                                                    "source": "ilfattoquotidianoit",
+                                                    "content": "Milano, 14 nov. (Adnkronos Salute) - Impulsivi, lunatici, ribelli alle regole. Sono gli adolescenti di oggi e di ieri. Ma quando un figlio teenager davanti a un bivio prende la decisione sbagliata po… [+3115 chars]",
+                                                    "url": "https://www.ilfattoquotidiano.it/2024/11/14/dopo-forza-italia-anche-la-lega-propone-un-nuovo-condono-rottamazione-delle-cartelle-fino-al-2023-con-pagamenti-spalmati-su-10-anni/7767669/",
+                                                    "published_at": "2024-11-14T20:48:35Z"
+                                                },
+                                                {
+                                                    "title": "Nejrychleji rostoucí firmou střední Evropy je česká Oddin.gg, druhá skončila Magu",
+                                                    "author": "ČTK",
+                                                    "slug": "nejrychleji-rostouci-firmou-stredni-evropy-je-ceska-oddingg-druha-skoncila-magu",
+                                                    "source": "wwwe15cz",
+                                                    "content": "Vítzem hlavní kategorie ebíku Deloitte Technology Fast 50 CE nejrychleji rostoucích firem ve stedoevropském regionu je letos eská firma Oddin.gg, která vytváí nástroje pro esport. Druhé místo obsadil… [+2451 chars]",
+                                                    "url": "https://www.e15.cz/byznys/startupy/nejrychleji-rostouci-firmou-stredni-evropy-je-ceska-oddin-gg-druha-skoncila-magu-1420095",
+                                                    "published_at": "2024-11-14T20:48:00Z"
+                                                },
+                                                {
+                                                    "title": "Biden Admin: If Trump Wants to Squash 'Rare' AI Plan, That's His 'Prerogative'",
+                                                    "author": "Emily Dreibelbis Forlini",
+                                                    "slug": "biden-admin-if-trump-wants-to-squash-rare-ai-plan-thats-his-prerogative",
+                                                    "source": "pcmagcom",
+                                                    "content": "The Department of Homeland Security today released a framework for using AI in critical infrastructure, such as emergency services, the power grid, and water and IT systems.\r\n\"The framework, if widel… [+2734 chars]",
+                                                    "url": "https://me.pcmag.com/en/ai/26896/biden-admin-if-trump-wants-to-squash-rare-ai-plan-thats-his-prerogative",
+                                                    "published_at": "2024-11-14T20:47:19Z"
+                                                },
+                                                {
+                                                    "title": "Australia Post unites HR support with new 'front door' and tech platform",
+                                                    "author": null,
+                                                    "slug": "australia-post-unites-hr-support-with-new-front-door-and-tech-platform",
+                                                    "source": "itnews",
+                                                    "content": "Australia Post has created a single front door for HR support, underpinned by a platform that’s being enhanced and expanded over a three-year period.\r\nHead of people services Laura Cheail told the Se… [+2989 chars]",
+                                                    "url": "https://www.itnews.com.au/news/australia-post-unites-hr-support-with-new-front-door-and-tech-platform-612574",
+                                                    "published_at": "2024-11-14T20:47:00Z"
+                                                }
+                                            ],
+                                            "links": {
+                                                "first": "http://localhost:8000/api/article?page=1",
+                                                "last": null,
+                                                "prev": null,
+                                                "next": "http://localhost:8000/api/article?page=2"
+                                            },
+                                            "meta": {
+                                                "current_page": 1,
+                                                "from": 1,
+                                                "path": "http://localhost:8000/api/article",
+                                                "per_page": 15,
+                                                "to": 15
+                                            }
+                                        }
+                                    },
+                                    "example-3": {
+                                        "summary": "Search by Date to",
+                                        "value": {
+                                            "data": [
+                                                {
+                                                    "title": "DIGITIMES釋明年科技關鍵字「轉」！　川普2.0曲球生成AI成企業轉型利器",
+                                                    "author": "陳俐妏",
+                                                    "slug": "digitimes-20ai",
+                                                    "source": "yahoo-entertainment",
+                                                    "content": "AIDIGITIMESAI2.02025AI\r\nDIGITIMESDIGITIMES 20254DIGITIMES2025AIAI\r\nDIGITIMESICAIAIwafer foundryAIAI foundry\r\nDIGITIMESAIAI18.1%41.3%AI31.5%AI\r\n (EMS)\r\n 90%20251\r\n: AI 50% GB200Blackwell2",
+                                                    "url": "https://tw.news.yahoo.com/digitimes%E9%87%8B%E6%98%8E%E5%B9%B4%E7%A7%91%E6%8A%80%E9%97%9C%E9%8D%B5%E5%AD%97-%E8%BD%89-%E5%B7%9D%E6%99%AE2-0%E6%9B%B2%E7%90%83%E7%94%9F%E6%88%90ai%E6%88%90%E4%BC%81%E6%A5%AD%E8%BD%89%E5%9E%8B%E5%88%A9%E5%99%A8-045237379.html",
+                                                    "published_at": "2024-11-14T20:52:37Z"
+                                                },
+                                                {
+                                                    "title": "Jules et Juline Delcommune remportent le titre de champion et championne de Wallonie de cyclocross: \"Il y a un an, je ne m'attendais même pas à revenir à ce niveau\"",
+                                                    "author": "Romain Helas",
+                                                    "slug": "jules-et-juline-delcommune-remportent-le-titre-de-champion-et-championne-de-wallonie-de-cyclocross-il-y-a-un-an-je-ne-mattendais-meme-pas-a-revenir-a-ce-niveau",
+                                                    "source": "lavenirnet",
+                                                    "content": "Et durant la course, Jules Delcommune a pu compter sur la présence de coureurs flamands. \"Je n'étais pas dans mon meilleur jour, mais j'ai pu attaquer fort dès le début et être le seul Wallon à reste… [+1164 chars]",
+                                                    "url": "https://www.lavenir.net/regions/huy-waremme/sports/2024/11/14/jules-et-juline-delcommune-remportent-le-titre-de-champion-et-championne-de-wallonie-de-cyclocross-il-y-a-un-an-je-ne-mattendais-meme-pas-a-revenir-a-ce-niveau-GJCIEIGTJZBE3FR6DXXKFMQCBQ/",
+                                                    "published_at": "2024-11-14T20:52:00Z"
+                                                },
+                                                {
+                                                    "title": "This Pixel phone feature listens in on calls to protect you from scams",
+                                                    "author": "Artie Beaty",
+                                                    "slug": "this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams",
+                                                    "source": "zdnet",
+                                                    "content": "Max Buondonno/ZDNET\r\nPhone scams are on the rise, and thanks to AI, they're more convincing than ever. That's why Google is stepping in and offering one last line of defense for Pixel users -- a feat… [+1910 chars]",
+                                                    "url": "https://www.zdnet.com/article/this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams/",
+                                                    "published_at": "2024-11-14T20:51:09Z"
+                                                },
+                                                {
+                                                    "title": "Belgio-Italia 0-1 DIRETTA e FOTO",
+                                                    "author": null,
+                                                    "slug": "belgio-italia-0-1-diretta-e-foto",
+                                                    "source": "ansait",
+                                                    "content": "Se hai scelto di non accettare i cookie di profilazione e tracciamento, puoi aderire all’abbonamento \"Consentless\" a un costo molto accessibile, oppure scegliere un altro abbonamento per accedere ad … [+320 chars]",
+                                                    "url": "https://www.ansa.it/sito/notizie/sport/calcio/2024/11/14/nations-league-italia-ai-quarti-belgio-battuto-1-0-a-bruxelles_3b1719e9-d2ab-4abb-8c85-1153af05c363.html",
+                                                    "published_at": "2024-11-14T20:51:03Z"
+                                                },
+                                                {
+                                                    "title": "TikTok plugs Getty Images into its AI-generated ads and avatars",
+                                                    "author": "Emma Roth",
+                                                    "slug": "tiktok-plugs-getty-images-into-its-ai-generated-ads-and-avatars",
+                                                    "source": "the-verge",
+                                                    "content": "TikTok plugs Getty Images into its AI-generated ads and avatars\r\nTikTok plugs Getty Images into its AI-generated ads and avatars\r\n / Gettys licensed images and videos will be available within TikToks… [+1515 chars]",
+                                                    "url": "https://www.theverge.com/2024/11/14/24296636/tiktok-ai-ads-getty-images-content",
+                                                    "published_at": "2024-11-14T20:50:45Z"
+                                                },
+                                                {
+                                                    "title": "TheCUBE analysis: Cloud-native infrastructure reshapes the future of scalable, AI-driven environments",
+                                                    "author": "Chad Wilson",
+                                                    "slug": "thecube-analysis-cloud-native-infrastructure-reshapes-the-future-of-scalable-ai-driven-environments",
+                                                    "source": "siliconangle-news",
+                                                    "content": "Cloud-native infrastructure is rapidly changing as companies seek to streamline, scale and secure their digital environments.\r\nAs modern technology increasingly depends on platform engineering and ar… [+5535 chars]",
+                                                    "url": "https://siliconangle.com/2024/11/14/cloud-native-infrastructure-kubecon/",
+                                                    "published_at": "2024-11-14T20:50:18Z"
+                                                },
+                                                {
+                                                    "title": "[Removed]",
+                                                    "author": null,
+                                                    "slug": "removed",
+                                                    "source": "removed",
+                                                    "content": "[Removed]",
+                                                    "url": "https://removed.com",
+                                                    "published_at": "2024-11-14T20:50:00Z"
+                                                },
+                                                {
+                                                    "title": "Bruker stock touches 52-week low at $54.55 amid market shifts",
+                                                    "author": "Investing.com",
+                                                    "slug": "bruker-stock-touches-52-week-low-at-5455-amid-market-shifts",
+                                                    "source": "investingcom",
+                                                    "content": "In a challenging market environment, Bruker (NASDAQ:BRKR) Corporation's stock (BRKR) has reached a 52-week low, dipping to $54.55. This latest price level reflects a notable decline in the company's … [+2886 chars]",
+                                                    "url": "https://www.investing.com/news/company-news/bruker-stock-touches-52week-low-at-5455-amid-market-shifts-93CH-3724117",
+                                                    "published_at": "2024-11-14T20:49:50Z"
+                                                },
+                                                {
+                                                    "title": "Commerce Bancshares controller Paul Steiner sells $58k in stock",
+                                                    "author": "Investing.com",
+                                                    "slug": "commerce-bancshares-controller-paul-steiner-sells-58k-in-stock",
+                                                    "source": "investingcom",
+                                                    "content": "KANSAS CITY, MO—Paul A. Steiner, Controller at Commerce Bancshares Inc. (NASDAQ:CBSH), recently sold shares of the company's common stock. According to a filing with the Securities and Exchange Commi… [+3087 chars]",
+                                                    "url": "https://www.investing.com/news/insider-trading-news/commerce-bancshares-controller-paul-steiner-sells-58k-in-stock-93CH-3724116",
+                                                    "published_at": "2024-11-14T20:49:39Z"
+                                                },
+                                                {
+                                                    "title": "ELA stock touches 52-week high at $6.24 amid market optimism",
+                                                    "author": "Investing.com",
+                                                    "slug": "ela-stock-touches-52-week-high-at-624-amid-market-optimism",
+                                                    "source": "investingcom",
+                                                    "content": "In a remarkable display of resilience, ELA stock has soared to a 52-week high, reaching a price level of $6.24 USD. This peak reflects a significant surge in investor confidence and market performanc… [+1827 chars]",
+                                                    "url": "https://www.investing.com/news/company-news/ela-stock-touches-52week-high-at-624-amid-market-optimism-93CH-3724115",
+                                                    "published_at": "2024-11-14T20:49:23Z"
+                                                },
+                                                {
+                                                    "title": "How Dune: Prophecy Explores a Future Afraid of AI",
+                                                    "author": "Liz Shannon Miller",
+                                                    "slug": "how-dune-prophecy-explores-a-future-afraid-of-ai",
+                                                    "source": "consequencenet",
+                                                    "content": "The newest addition to the Dune franchise doesn’t want to be a one-off entry. According to Dune: Prophecy executive producer Jordan Goldberg, “There are so many things to touch upon in this universe … [+5937 chars]",
+                                                    "url": "https://consequence.net/2024/11/dune-prophecy-ai-technology-interviews-hbo/",
+                                                    "published_at": "2024-11-14T20:49:19Z"
+                                                },
+                                                {
+                                                    "title": "Dopo Forza Italia anche la Lega propone un nuovo condono: rottamazione delle cartelle fino al 2023 con pagamenti spalmati su 10 anni",
+                                                    "author": "F. Q.",
+                                                    "slug": "dopo-forza-italia-anche-la-lega-propone-un-nuovo-condono-rottamazione-delle-cartelle-fino-al-2023-con-pagamenti-spalmati-su-10-anni",
+                                                    "source": "ilfattoquotidianoit",
+                                                    "content": "Milano, 14 nov. (Adnkronos Salute) - Impulsivi, lunatici, ribelli alle regole. Sono gli adolescenti di oggi e di ieri. Ma quando un figlio teenager davanti a un bivio prende la decisione sbagliata po… [+3115 chars]",
+                                                    "url": "https://www.ilfattoquotidiano.it/2024/11/14/dopo-forza-italia-anche-la-lega-propone-un-nuovo-condono-rottamazione-delle-cartelle-fino-al-2023-con-pagamenti-spalmati-su-10-anni/7767669/",
+                                                    "published_at": "2024-11-14T20:48:35Z"
+                                                },
+                                                {
+                                                    "title": "Nejrychleji rostoucí firmou střední Evropy je česká Oddin.gg, druhá skončila Magu",
+                                                    "author": "ČTK",
+                                                    "slug": "nejrychleji-rostouci-firmou-stredni-evropy-je-ceska-oddingg-druha-skoncila-magu",
+                                                    "source": "wwwe15cz",
+                                                    "content": "Vítzem hlavní kategorie ebíku Deloitte Technology Fast 50 CE nejrychleji rostoucích firem ve stedoevropském regionu je letos eská firma Oddin.gg, která vytváí nástroje pro esport. Druhé místo obsadil… [+2451 chars]",
+                                                    "url": "https://www.e15.cz/byznys/startupy/nejrychleji-rostouci-firmou-stredni-evropy-je-ceska-oddin-gg-druha-skoncila-magu-1420095",
+                                                    "published_at": "2024-11-14T20:48:00Z"
+                                                },
+                                                {
+                                                    "title": "Biden Admin: If Trump Wants to Squash 'Rare' AI Plan, That's His 'Prerogative'",
+                                                    "author": "Emily Dreibelbis Forlini",
+                                                    "slug": "biden-admin-if-trump-wants-to-squash-rare-ai-plan-thats-his-prerogative",
+                                                    "source": "pcmagcom",
+                                                    "content": "The Department of Homeland Security today released a framework for using AI in critical infrastructure, such as emergency services, the power grid, and water and IT systems.\r\n\"The framework, if widel… [+2734 chars]",
+                                                    "url": "https://me.pcmag.com/en/ai/26896/biden-admin-if-trump-wants-to-squash-rare-ai-plan-thats-his-prerogative",
+                                                    "published_at": "2024-11-14T20:47:19Z"
+                                                },
+                                                {
+                                                    "title": "Australia Post unites HR support with new 'front door' and tech platform",
+                                                    "author": null,
+                                                    "slug": "australia-post-unites-hr-support-with-new-front-door-and-tech-platform",
+                                                    "source": "itnews",
+                                                    "content": "Australia Post has created a single front door for HR support, underpinned by a platform that’s being enhanced and expanded over a three-year period.\r\nHead of people services Laura Cheail told the Se… [+2989 chars]",
+                                                    "url": "https://www.itnews.com.au/news/australia-post-unites-hr-support-with-new-front-door-and-tech-platform-612574",
+                                                    "published_at": "2024-11-14T20:47:00Z"
+                                                }
+                                            ],
+                                            "links": {
+                                                "first": "http://localhost:8000/api/article?page=1",
+                                                "last": null,
+                                                "prev": null,
+                                                "next": "http://localhost:8000/api/article?page=2"
+                                            },
+                                            "meta": {
+                                                "current_page": 1,
+                                                "from": 1,
+                                                "path": "http://localhost:8000/api/article",
+                                                "per_page": 15,
+                                                "to": 15
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/article/{slug}": {
+            "get": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "Show",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {
+                            "Host": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "localhost:8000"
+                                }
+                            },
+                            "Connection": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "close"
+                                }
+                            },
+                            "X-Powered-By": {
+                                "schema": {
+                                    "type": "number",
+                                    "example": "PHP/8.3.13"
+                                }
+                            },
+                            "Cache-Control": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "no-cache, private"
+                                }
+                            },
+                            "Date": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Fri, 15 Nov 2024 21:48:52 GMT"
+                                }
+                            },
+                            "Content-Type": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "application/json"
+                                }
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "*"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "data": {
+                                        "title": "This Pixel phone feature listens in on calls to protect you from scams",
+                                        "author": "Artie Beaty",
+                                        "slug": "this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams",
+                                        "source": "zdnet",
+                                        "content": "Max Buondonno/ZDNET\r\nPhone scams are on the rise, and thanks to AI, they're more convincing than ever. That's why Google is stepping in and offering one last line of defense for Pixel users -- a feat… [+1910 chars]",
+                                        "url": "https://www.zdnet.com/article/this-pixel-phone-feature-listens-in-on-calls-to-protect-you-from-scams/",
+                                        "published_at": "2024-11-14T20:51:09Z"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

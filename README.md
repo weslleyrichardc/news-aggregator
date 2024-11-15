@@ -42,8 +42,8 @@ Open [http://localhost:8000](http://localhost:8000) to view the application.
         - [X] News APIs
         - [ ] The Guardian
         - [ ] The New York Times
-- [ ] API Documentation
-    - [ ] Swagger/OpenAPI
+- [X] API Documentation
+    - [X] Swagger/OpenAPI
 
 ## Testing
 
