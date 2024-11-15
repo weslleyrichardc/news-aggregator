@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command(
-    'news:fetch-articles',
-    fn() => Log::log('debug', 'Fetching Articles from API')
-)->daily();
+Schedule::command('news:fetch-articles')->daily();

@@ -51,6 +51,10 @@ Open [http://localhost:8000](http://localhost:8000) to view the application.
 php artisan test
 ```
 
+# Swagger
+
+Open http://localhost:8000/swagger while in development environment.
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.

@@ -19,15 +19,13 @@ class ArticleController extends Controller
 
         $articles = Article::query()
             ->when($keyword, function ($query) use ($keyword) {
-                $query->orWhere('title', 'LIKE', '%' . $keyword . '%')
-                    ->orWhere('slug', 'LIKE', '%' . $keyword . '%')
-                    ->orWhere('content', 'LIKE', '%' . $keyword . '%');
+                $query->whereAny(['title', 'slug', 'content'], 'LIKE', '%' . $keyword . '%');
             })
             ->when($author, function ($query) use ($author) {
-                $query->orWhere('author', 'LIKE', '%' . $author . '%');
+                $query->orWhereLike('author', '%' . $author . '%');
             })
             ->when($source, function ($query) use ($source) {
-                $query->orWhere('source_id', 'LIKE', '%' . $source . '%');
+                $query->orWhereColumn('source_id', 'sources.id');
             })
             ->when($from || $to, function ($query) use ($from, $to) {
                 $query->orWhereBetween('published_at', [$from ?? now()->subMonths(12), $to ?? now()]);
